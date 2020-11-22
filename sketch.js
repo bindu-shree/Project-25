@@ -3,60 +3,61 @@ const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
+const Render = Matter.Render;
+var dustbinObj, paperObject,groundObject	
+var world;
 
-var engine, world;
-var paper;
 
-function preload()
-{	
-	
-}
 function setup() {
-	createCanvas(1500, 800);
+	createCanvas(1600, 700);
+	rectMode(CENTER);
 
 
 	engine = Engine.create();
 	world = engine.world;
+	
+	paperObject=new paper(200,450,70);
+	
+	
 
+	var render = Render.create({
+	  element: document.body,
+	  engine: engine,
+	  options: {
+	    width: 1600,
+	    height: 700,
+	    wireframes: false
+	  }
+	});
 
 	Engine.run(engine);
-  paper= new Paper(200,630,20);
-
-  boxPosition=width/2-100, boxY=610;
-
-  groundSprite=createSprite(width/2, height-35, width,10);
-	groundSprite.shapeColor=color(255)
-
-	ground = Bodies.rectangle(width/2, 650, width, 10 , {isStatic:true} );
-	 World.add(world, ground);
-
-  boxleftSprite=createSprite(1000, boxY, 20,100);
-  boxleftSprite.shapeColor=color(255,0,0);
-   boxLeftBody = Bodies.rectangle(100, boxY, 20,100 , {isStatic:true} );
-   World.add(world, boxLeftBody);
-
-   boxBase=createSprite(1100, boxY+40, 200,20);
-   boxBase.shapeColor=color(255,0,0);
-   boxBottomBody = Bodies.rectangle(1100, boxY+45-20, 200,20 , {isStatic:true} );
-    World.add(world, boxBottomBody);
-
-    boxrightSprite=createSprite(1200 , boxY, 20,100);
-   boxrightSprite.shapeColor=color(255,0,0);
-    boxRightBody = Bodies.rectangle(1200, boxY, 20,100 , {isStatic:true} );
-   World.add(world, boxRightBody);
-
+	Render.run(render);
+  
 }
 
 
 function draw() {
   rectMode(CENTER);
-  background(0);
-  paper.display();
-  
-  drawSprites();
+  background(230);
  
-}function keyPressed(){
-  if(keyCode === UP_ARROW){
-    Matter.Body.applyForce(paper.body,paper.body.position,{x:20,y:-20});
-  }
+  
+  paperObject.display();
+ 
+
+  
+  
+ 
+  
+  
+ 
 }
+
+function keyPressed() {
+  	if (keyCode === UP_ARROW) {
+
+    	Matter.Body.applyForce(paperObject.body,paperObject.body.position,{x:130,y:-145});
+
+    
+  	}
+}
+
